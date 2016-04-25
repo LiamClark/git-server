@@ -47,8 +47,6 @@ public class RepositoryApiStressTest {
 
     private CreateRepositoryModel crm;
 
-    public static final int threadCount = 200;
-
     @Before
     public void setUp() throws GitAPIException, IOException {
         crm = new CreateRepositoryModel();
@@ -58,24 +56,6 @@ public class RepositoryApiStressTest {
         detailedRepositoryModel = repositoriesApi.createRepository(crm);
     }
 
-    @Ignore
-    @Test
-    public void testGitBlameWithSubmoduleThreaded() throws Exception {
-        Runnable r = () -> {
-
-        };
-
-        List<Thread> thr = IntStream.range(0, threadCount).mapToObj(i -> new Thread(r)).collect(Collectors.toList());
-        thr.forEach(Thread::start);
-        thr.forEach((thread) -> {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-
-    }
 
     @Test
     public void testGitBlameWithSubmodule() {
